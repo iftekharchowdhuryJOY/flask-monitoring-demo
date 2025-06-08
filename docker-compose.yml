@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  flask-app:
+    build: ./app
+    ports:
+      - "5000:5000" 
+      - "8000:8000"
+    networks:
+      - monitoring
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  # Mount config file
+    ports:
+      - "9090:9090"
+    networks:
+     - monitoring
+    depends_on:
+      - flask-app
+    restart: unless-stopped
+
+
+  
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana-dashboards:/etc/grafana/provisioning/dashboards
+
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+networks:
+  monitoring:
+
+volumes:
+  grafana-storage: 
