@@ -2,8 +2,6 @@
 
 Real-time monitoring system for Flask applications using Docker, Prometheus, and Grafana.
 
-![Dashboard Screenshot](https://i.imgur.com/JQ8W5Ny.png)
-
 ## Features
 - ✅ Track HTTP requests, errors, and response times
 - ✅ Monitor CPU/RAM/disk usage
